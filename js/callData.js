@@ -9,7 +9,7 @@ class StorageData{
 	
 	print(num){
 		console.log("Lender[" + num + "] : " + this.Lender);
-		console.log("Borrower[ "+ num + "] : " + this.Borrower);
+		console.log("Borrower["+ num + "] : " + this.Borrower);
 		console.log("Hash[" + num + "] : " + this.Hash);
 	}
 	
@@ -43,7 +43,7 @@ function WriteTextFile(){
 	for(let i = 0; i < number; i++){
 		//Data[i] = new StorageData(i);
 		Data[i].WriteFile(i);
-		console.log("Data[" + number "] : " + Data[i] + "ファイル出力完了");
+		console.log("Data[" + number + "] : " + Data[i] + "ファイル出力完了");
 	}
 	
 }
