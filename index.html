@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+	<script src="https://rawgit.com/ethereumjs/browser-builds/master/dist/ethereumjs-abi/ethereumjs-abi-0.6.5.js"></script>
+	<script src="https://rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+  <script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="./js/metamask.js"></script>
+
+<script>
+  var s = io.connect('http://172.16.31.212:3000'); //サーバIPアドレスの指定
+  //サーバから受け取るイベント
+  s.on("connect", function () {});  // 接続時
+  s.on("disconnect", function (client) {});  // 切断時
+  s.on("S_to_C_FileName", function (data) {
+    console.log(data.value);
+  });
+</script>
+
+</head>
+<body ng-controller="AppController as app">
+	<h1>Study Prototype System</h1>
+    <form action="upload" method="POST" name = "myform" enctype="multipart/form-data">
+    ToAddress:
+		<input type="text" id = "Address" size = "50" value="">
+    <br>
+		FileSelect:
+		<input id="inputFile" type="file" name = "upName">
+    <br>
+		<input type="button" value="Deploy" onClick= "convertToBase64(Deploy)">
+		<br>
+    <input type="button" value="StragePrams" onClick= "convertToBase64(StragePasshash)">
+    <br>
+    <input type="button" value="Call&Storage" onclick="StorageBlockData()">
+    <br>
+    <input type="button" value= WriteBlockData onclick = "WriteTextFile()">
+		</form>
+
+<script>
+
+$('#upName').change(function(){
+  if (this.files.length > 0) {
+    // 選択されたファイル情報を取得
+    var file = this.files[0];
+    // readerのresultプロパティに、データURLとしてエンコードされたファイルデータを格納
+    var reader = new FileReader();
+		reader.readAsDataURL(file);
+   
+    reader.onload = function() {
+      $('#thumbnail').attr('src', reader.result );
+    }
+	}
+});
+</script>
+	<script type="text/javascript" src="./js/Contract.js"></script>
+	<script type="text/javascript" src="./js/sha256.js"></script>
+	<script type="text/javascript" src="./js/StragePrams.js"></script>
+	<script type="text/javascript" src="./js/callData.js"></script>
+
+</body>
+</html>
