@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.24;
 
 contract LendEbook{
     
@@ -7,15 +7,18 @@ contract LendEbook{
         address Borrower;//被貸与者
         string E_BookName;//書籍ハッシュ
     }
-    event Strage(address x, address y, string z);
+    event MessageSent(uint indexed No, address indexed sender, address indexed Borrower, string Hash);
+    event send();
+    event DeployEvent();
     
     Data[] public datas;
     
-    function LendEbook () public{
+    constructor() public{
        datas.push(Data(address(0), address(0), " "));
     }
     function deploy(string name) public {//データを登録するための関数
         datas.push(Data(msg.sender, msg.sender, name));
+        emit DeployEvent();
     }
     
     function lender(address to, string name) public {//貸与に用いる関数
@@ -27,6 +30,7 @@ contract LendEbook{
         (_judgeResult, No) = LenderJudge(msg.sender, to, name);
         
         require (_judgeResult != 0);
+        emit send();
         
         if(_judgeResult == 1){
              datas.push(Data(msg.sender, to, name));//貸与の判別
@@ -67,6 +71,14 @@ contract LendEbook{
         }
         
         return (resultJudge, max);
+    }
+    
+    function getNumber() public view returns(uint){
+        return datas.length;
+    }
+    
+    function getData(uint number) public view returns (address, address, string){
+        return (datas[number].Lender, datas[number].Borrower, datas[number].E_BookName);
     }
 }
 
