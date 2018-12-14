@@ -70,6 +70,10 @@
 			WriteFile("deployTime", deployTime);
 			WriteFile();
 		});
+		socket.on("SendError",function(ErrorTime){
+			console.log("Error Time : " + ErrorTime);
+			WriteFile("ErrorTime", ErrorTime);
+		})
 		
 		socket.on("BlockFile",function(number, Lender, Borrower, Hash){
 			console.log("Block[" + number + "]");

@@ -48,14 +48,19 @@ var Deploy = function deploy(passhash){
 
 // イベントを受け取って発火するようサブスクライブ
 contract.send((err, event) => {
-  if (err) t.error(err)
-  else {
-		GetBalance();
-    document.myform.submit();
-		FTime = Date.now();
-		Time =  FTime - STime;
-		console.log("SendTime : " + Time);
-		s.emit("SendTime",Time);
+  if (err){
+  	FTime = Date.now();
+  	Time = FTime - STime;
+  	console.log("Send Error : " + Time);
+  	s.emit("SendError", Time);
+  	t.error(err)
+  }else {
+			GetBalance();
+    	document.myform.submit();
+			FTime = Date.now();
+			Time =  FTime - STime;
+			console.log("SendTime : " + Time);
+			s.emit("SendTime",Time);
   }
 });
 

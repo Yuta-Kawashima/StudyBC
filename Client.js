@@ -1,5 +1,5 @@
 var client = require('socket.io-client');
-var socket = client.connect('http://172.16.31.212:3000');//サーバのIPアドレスを指定する
+var socket = client.connect('http://172.16.31.10:3000');//サーバのIPアドレスを指定する Win64IPNow
 var fs = require("fs"); 
 const path = require('path');
 socket.on('Connection',function(){
